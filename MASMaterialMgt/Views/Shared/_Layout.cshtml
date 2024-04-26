@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MASMaterialMgt</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MASMaterialMgt.styles.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">Material Management System</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-column-reverse justify-content-between align-items-end">
+                    <li class="nav-item">
+                        <partial name="_LoginPartial.cshtml" />
+                    </li>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <style>
+        #menu {
+            min-height: 50vh;
+        }
+
+            #menu .nav-item {
+                width: 100%;
+                margin-bottom: 10px; 
+            }
+
+            #menu .nav-link {
+                display: flex;
+                align-items: center;
+                width:10vw;
+                justify-content: center; 
+                padding: 10px 20px 20px 20px; 
+                background-color: #dc3545; 
+                color: white;
+                border: none;
+                text-decoration: none;
+                transition: background-color 0.3s;
+            }
+
+                #menu .nav-link:hover {
+                    background-color: #c82333; 
+                }
+    </style>
+
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+
+                    <img src="~/mas.png" alt="Logo" class="mb-10 align-self-center mx-auto" style="max-width: 50%;">
+
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 mt-lg-5 align-items-center align-items-sm-start p-3 rounded" id="menu">
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="Index" asp-area="" class="nav-link align-middle px-0 text-white">
+                                <i class="fs-4 bi bi-house-fill"></i><span class="ms-1 d-none d-sm-inline">Home</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="Materials" asp-action="Index" asp-area="" class="nav-link align-middle px-0 text-white">
+                                <i class="fs-4 bi bi-house-fill"></i><span class="ms-1 d-none d-sm-inline">Materials</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="Materials" asp-action="Create" asp-area="" class="nav-link align-middle px-0 text-white">
+                                <i class="fs-4 bi bi-house-fill"></i><span class="ms-1 d-none d-sm-inline">New Material</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="Suppliers" asp-action="Index" asp-area="" class="nav-link align-middle px-0 text-white">
+                                <i class="fs-4 bi bi-house-fill"></i><span class="ms-1 d-none d-sm-inline">Suppliers</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="Suppliers" asp-action="Create" asp-area="" class="nav-link align-middle px-0 text-white">
+                                <i class="fs-4 bi bi-house-fill"></i><span class="ms-1 d-none d-sm-inline">New Supplier</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+                </div>
+            </div>
+            <div class="col py-3">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - MAS Material Management System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> 
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

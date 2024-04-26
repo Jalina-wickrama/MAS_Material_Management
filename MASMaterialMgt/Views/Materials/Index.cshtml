@@ -1,0 +1,75 @@
+﻿@model List<Material>
+@{
+}
+
+
+<h2 class="text-center mb-5">List of Materials</h2>
+<div class="row mb-5" style="background-color: #f8f9fa; border: 1px solid #ced4da; padding: 15px;">
+    <div class="col">
+        <a class="btn btn-primary" asp-controller="Materials" asp-action="Create">New Materials</a>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <form asp-action="Index" method="get">
+                <select class="form-control" id="priceSort" name="sortOrder" onchange="this.form.submit()">
+                    <option value="Price">Price: Ascending</option>
+                    <option value="price_desc">Price: Descending</option>
+                </select>
+            </form>
+        </div>
+    </div>
+    <div class="col">
+        <form asp-action="Index" method="get" class="form-inline">
+            <div class="form-row align-items-center">
+                <div class="col">
+                    <input type="text" class="form-control w-100" placeholder="Search..." aria-label="Search" id="searchString" name="searchString" value="@ViewData["CurrentFilter"]">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary btn-block mt-3">Apply</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Material Name</th>
+            <th>Description</th>
+            <th>Unit Price</th>
+            <th>QTY(Rolls)</th>
+            <th>Supplier</th>
+            <th>Created At</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var material in Model)
+        {
+            <tr>
+                <td>@material.Id</td>
+                <td>
+                    <div class="rounded-container">
+                        <img src="/materials/@material.ImageFileName" alt="IMG" />
+                    </div>
+                </td>
+                <td>@material.Name</td>
+                <td>@material.Description</td>
+                <td>@(material.Unit_Price)LKR</td>
+                <td>@material.Qty</td>
+                <td>@material.Supplier</td>
+                <td>@material.CreatedAt.ToString("MM/dd/yyyy")</td>
+                <td style="white-space: nowrap">
+                    <a class="btn btn-primary btn-sm" asp-controller="Materials" asp-action="Edit" asp-route-id="@material.Id">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-controller="Materials" asp-action="Delete" asp-route-id="@material.Id" onclick="return confirm('Are you Sure?')">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

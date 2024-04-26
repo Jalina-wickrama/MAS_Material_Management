@@ -1,0 +1,86 @@
+﻿@model MaterialDto
+@{
+    ViewBag.Title = "New Product";
+}
+
+<div class="row">
+    <div class="col-md-8 mx-auto rounded border p-3">
+        <h2 class="text-center mb-5">@ViewBag.Title</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            @try
+            {
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Image</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" asp-for="ImageFile" />
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Name</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" asp-for="Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Description</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" asp-for="Description"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Price</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" asp-for="Unit_Price" />
+                        <span asp-validation-for="Unit_Price" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">QTY</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" asp-for="Qty" />
+                        <span asp-validation-for="Qty" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Supplier</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" asp-for="Supplier">
+                            <option value="">-- Select Supplier --</option>
+                            @foreach (var supplier in ViewBag.Suppliers)
+                            {
+                                <option value="@supplier.Id">@supplier.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="offset-sm-4 col-sm-4 d-grid">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                    <div class="col-sm-4 d-grid">
+                        <a class="btn btn-outline-primary" asp-controller="Materials" asp-action="Index" role="button">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+            }
+            catch (Exception ex)
+            {
+                <div class="alert alert-danger" role="alert">
+                    An error occurred: @ex.Message
+                </div>
+            }
+        </form>
+
+    </div>
+</div>

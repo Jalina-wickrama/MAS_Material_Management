@@ -1,0 +1,48 @@
+﻿@model List<Supplier>
+@{
+}
+
+<h2 class="text-center mb-5">List of Suppliers</h2>
+
+<div class="row mb-5">
+    <div class="col">
+        <a class="btn btn-primary" asp-controller="Suppliers" asp-action="Create">New Supplier</a>
+    </div>
+    <div class="col">
+    </div>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Website</th>
+            <th>Activity</th>
+            <th>Created At</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var supplier in Model)
+        {
+            <tr>
+                <td>@supplier.Id</td>
+                <td>@supplier.Name</td>
+                <td>@supplier.Address</td>
+                <td>@supplier.Phone</td>
+                <td>@supplier.Website</td>
+                <td>@supplier.Activity</td>
+                <td>@supplier.CreatedAt.ToString("MM/dd/yyyy")</td>
+                <td style="white-space: nowrap">
+                    <a class="btn btn-primary btn-sm" asp-controller="Suppliers" asp-action="Edit" asp-route-id="@supplier.Id">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-controller="Suppliers" asp-action="Delete" asp-route-id="@supplier.Id" onclick="return confirm('Are you Sure?')">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+   
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card border-0 bg-danger text-white shadow rounded">
+                <div class="card-body">
+                    <p class="card-title fw-bold text-white mb-4">Total Materials</p>
+                    <h1 class="card-text fw-bold text-white align-self-center" style="font-size: 1.5rem;">@ViewBag.TotalMaterialCount</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card border-0 bg-danger text-white shadow rounded">
+                <div class="card-body">
+                    <p class="card-title fw-bold text-white mb-4">Out of Stock Materials</p>
+                    <h1 class="card-text fw-bold text-white" style="font-size: 1.5rem;">@ViewBag.OutOfStockMaterialCount</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card border-0 bg-danger text-white shadow rounded">
+                <div class="card-body">
+                    <p class="card-title fw-bold text-white mb-4">Active Suppliers</p>
+                    <h1 class="card-text fw-bold text-white" style="font-size: 1.5rem;">@ViewBag.ActiveSuppliersCount</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card border-0 bg-danger text-white shadow rounded">
+                <div class="card-body">
+                    <p class="card-title fw-bold text-white mb-4">Deactivated Suppliers</p>
+                    <h1 class="card-text fw-bold text-white" style="font-size: 1.5rem;">@ViewBag.DeactivatedSuppliersCount</h1>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card border-0  shadow rounded">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-dark mb-4">Material Quantities</h5>
+                    <canvas id="barChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- New Bar Chart for Supplier Activity -->
+        <div class="col-md-6">
+            <div class="card border-0  shadow rounded">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-dark mb-4">Supplier Activity</h5>
+                    <canvas id="activityBarChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx1 = document.getElementById('barChart').getContext('2d');
+        var barChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: [@Html.Raw(Json.Serialize(ViewBag.MaterialNames))],
+                datasets: [{
+                    label: 'Quantities',
+                    data: [@Html.Raw(Json.Serialize(ViewBag.MaterialQuantities))],
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        var ctx2 = document.getElementById('activityBarChart').getContext('2d');
+        var activityBarChart = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: [@Html.Raw(Json.Serialize(ViewBag.SupplierActivityLabels))],
+                datasets: [{
+                    label: 'Count',
+                    data: [@Html.Raw(Json.Serialize(ViewBag.SupplierActivityCounts))],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}
